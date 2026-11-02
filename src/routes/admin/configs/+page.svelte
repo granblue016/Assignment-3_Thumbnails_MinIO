@@ -102,11 +102,16 @@
 </svelte:head>
 
 <main class="container py-5" style="max-width: 800px;">
+	<!-- Header chính: Đã đưa nút Quản lý Thumbnail lên đây để tách rời hoàn toàn khỏi form tạo mới -->
 	<div class="d-flex justify-content-between align-items-center mb-4 pb-3 border-bottom">
 		<div>
 			<h1 class="h3 fw-bold text-dark">Quản lý Cấu hình Bản đồ (MinIO)</h1>
 			<p class="text-muted small mb-0">Danh sách các tệp JSON lưu trữ trực tiếp trên MinIO Cloud.</p>
 		</div>
+		<!-- svelte-ignore svelte/no-navigation-without-resolve -->
+		<a href="/admin/thumbnails" class="btn btn-outline-success fw-semibold px-3">
+			📷 Quản lý Thumbnail
+		</a>
 	</div>
 
 	{#if errorMessage}
@@ -115,11 +120,11 @@
 		</div>
 	{/if}
 
-	<!-- Form tạo mới nhanh -->
+	<!-- Form tạo mới nhanh (Đã sạch sẽ, chỉ chứa chức năng tạo cấu hình) -->
 	<form onsubmit={handleCreate} class="card p-4 mb-4 border-0 shadow-sm bg-light rounded-3">
 		<h5 class="h6 fw-bold mb-3 text-secondary">Tạo cấu hình bản đồ mới với Key độc lập:</h5>
 		
-    <div class="input-group">
+		<div class="input-group">
 			<input
 				type="text"
 				bind:value={newKey}
@@ -130,10 +135,6 @@
 			<button type="submit" disabled={isCreating} class="btn btn-primary fw-semibold px-4">
 				{isCreating ? 'Đang tạo...' : '+ Tạo mới'}
 			</button>
-      <button onclick={() => goto('/admin/thumbnails')} class="btn btn-outline-secondary btn-sm">
-				Quản lý Thumbnail
-			</button>
-      
 		</div>
 	</form>
 

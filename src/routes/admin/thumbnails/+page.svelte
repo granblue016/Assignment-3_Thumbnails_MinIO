@@ -19,6 +19,15 @@
 	let mapInstance = $state.raw<import('leaflet').Map | null>(null);
 	let tileLayerInstance = $state.raw<import('leaflet').TileLayer | null>(null);
 
+	// Hàm chuẩn hóa link thumbnail thành link tuyệt đối đầy đủ (có https/http)
+	function getAbsoluteUrl(url: string) {
+		if (!url) return '';
+		if (url.startsWith('http://') || url.startsWith('https://')) {
+			return url;
+		}
+		return window.location.origin + url;
+	}
+
 	// 1. Tải danh sách thumbnail từ API
 	async function fetchThumbnails() {
 		try {
@@ -259,7 +268,7 @@
 							<tr>
 								<td>
 									<img
-										src={thumb.url}
+										src={getAbsoluteUrl(thumb.url)}
 										alt={thumb.name}
 										class="object-fit-cover rounded border"
 										style="width: 60px; height: 45px;"
@@ -271,14 +280,14 @@
 									<input
 										type="text"
 										readonly
-										value={thumb.url}
+										value={getAbsoluteUrl(thumb.url)}
 										class="form-control form-control-sm text-truncate"
 										style="max-width: 250px;"
 									/>
 								</td>
 								<td class="text-end">
 									<button
-										onclick={() => copyToClipboard(thumb.url)}
+										onclick={() => copyToClipboard(getAbsoluteUrl(thumb.url))}
 										class="btn btn-sm btn-outline-primary me-1">Copy URL</button
 									>
 									<button
