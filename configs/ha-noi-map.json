@@ -1,5 +1,5 @@
 {
-  "title": "Hệ thống Bản đồ Trực tuyến - Sở khoa học và Công nghệ TP.HCM",
+  "title": "Hệ thống Bản đồ Trực tuyến - Sở khoa học và Công nghệ Hà Nội",
   "logoUrl": "https://tile.openstreetmap.org/12/3262/1925.png",
   "zoom": 8,
   "center": [10.780074, 106.6876522],
@@ -17,21 +17,21 @@
   ],
   "overlays": [
     {
-      "name": "Khu bảo tồn quốc gia Việt Nam",
+      "name": "Khu bảo tồn quốc gia Việt Nam Hà Nội",
       "wmsUrl": "https://geoserver.opendevelopmentmekong.net/geoserver/ODVietnam/wms",
       "layers": "ODVietnam:Khu bao ton",
       "iconUrl": "./1.jpg",
       "active": true
     },
     {
-      "name": "Tuần suât lũ lụt",
+      "name": "Tuần suât lũ lụt Thử Đức",
       "wmsUrl": "https://geoserver.opendevelopmentmekong.net/geoserver/ODVietnam/wms",
       "layers": "ODVietnam:Flood_frequency-contour",
       "iconUrl": "./2.jpg",
       "active": false
     },
     {
-      "name": "Covid-19",
+      "name": "Covid-19 Hà Nội",
       "wmsUrl": "https://geoserver.opendevelopmentmekong.net/geoserver/ODVietnam/wms",
       "layers": "ODVietnam:10453931-345b-40fb-adc0-35eca5831381",
       "iconUrl": "./3.png",
@@ -41,14 +41,14 @@
       "name": "Danh sách di sản thế giới tại Việt Nam",
       "wmsUrl": "https://geoserver.opendevelopmentmekong.net/geoserver/ODVietnam/wms",
       "layers": "ODVietnam:World Heritage Site of Vietnam (V.vietnamese)",
-      "iconUrl": "./4.jpg",
+      "iconUrl": "./4.webp",
       "active": false
     },
     {
       "name": "Các dự án hộ trợ của ngân hàng thế giới tại Việt Nam",
       "wmsUrl": "https://geoserver.opendevelopmentmekong.net/geoserver/ODVietnam/wms",
       "layers": "ODVietnam:World_bank_aid_vn",
-      "iconUrl": "./5.jpg",
+      "iconUrl": "./5.png",
       "active": false
     }
     
