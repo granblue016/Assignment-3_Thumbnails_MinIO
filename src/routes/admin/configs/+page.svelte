@@ -3,7 +3,9 @@
 	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
 
-	let configs = $state<{ key: string; title: string; updatedAt: string | Date; status: string }[]>([]);
+	let configs = $state<{ key: string; title: string; updatedAt: string | Date; status: string }[]>(
+		[]
+	);
 	let newKey = $state('');
 	let isLoading = $state(true);
 	let errorMessage = $state('');
@@ -48,7 +50,10 @@
 
 	async function handleCreate(event: SubmitEvent) {
 		event.preventDefault();
-		const key = newKey.trim().toLowerCase().replace(/[^a-z0-9-]+/g, '-');
+		const key = newKey
+			.trim()
+			.toLowerCase()
+			.replace(/[^a-z0-9-]+/g, '-');
 		if (!key) {
 			alert('Vui lòng nhập tên key hợp lệ!');
 			return;
@@ -103,14 +108,19 @@
 
 <main class="container py-5" style="max-width: 800px;">
 	<!-- Header chính: Đã đưa nút Quản lý Thumbnail lên đây để tách rời hoàn toàn khỏi form tạo mới -->
-	<div class="d-flex justify-content-between align-items-center mb-4 pb-3 border-bottom">
+	<div class="d-flex justify-content-between align-items-center border-bottom mb-4 pb-3">
 		<div>
 			<h1 class="h3 fw-bold text-dark">Quản lý Cấu hình Bản đồ (MinIO)</h1>
-			<p class="text-muted small mb-0">Danh sách các tệp JSON lưu trữ trực tiếp trên MinIO Cloud.</p>
+			<p class="text-muted small mb-0">
+				Danh sách các tệp JSON lưu trữ trực tiếp trên MinIO Cloud.
+			</p>
 		</div>
 		<!-- svelte-ignore svelte/no-navigation-without-resolve -->
-		<a href="/admin/thumbnails" class="btn btn-outline-success fw-semibold px-3">
-			📷 Quản lý Thumbnail
+		<a href="/admin/thumbnails" class="btn btn-outline-secondary fw-semibold px-3">
+			Quản lý Thumbnail
+		</a>
+		<a href="/admin/icons" class="btn btn-outline-secondary btn-md fw-semibold px-3">
+			Quản lý Icon
 		</a>
 	</div>
 
@@ -121,9 +131,9 @@
 	{/if}
 
 	<!-- Form tạo mới nhanh (Đã sạch sẽ, chỉ chứa chức năng tạo cấu hình) -->
-	<form onsubmit={handleCreate} class="card p-4 mb-4 border-0 shadow-sm bg-light rounded-3">
-		<h5 class="h6 fw-bold mb-3 text-secondary">Tạo cấu hình bản đồ mới với Key độc lập:</h5>
-		
+	<form onsubmit={handleCreate} class="card bg-light rounded-3 mb-4 border-0 p-4 shadow-sm">
+		<h5 class="h6 fw-bold text-secondary mb-3">Tạo cấu hình bản đồ mới với Key độc lập:</h5>
+
 		<div class="input-group">
 			<input
 				type="text"
@@ -139,21 +149,24 @@
 	</form>
 
 	<!-- Bảng hiển thị danh sách -->
-	<h2 class="h5 fw-bold mb-3 text-dark">Danh sách cấu hình hiện có</h2>
+	<h2 class="h5 fw-bold text-dark mb-3">Danh sách cấu hình hiện có</h2>
 
 	{#if isLoading}
-		<p class="text-muted text-center py-5">Đang quét dữ liệu từ MinIO...</p>
+		<p class="text-muted py-5 text-center">Đang quét dữ liệu từ MinIO...</p>
 	{:else if configs.length === 0}
-		<p class="text-muted fst-italic py-3">Chưa có tệp cấu hình nào. Hãy nhập key và bấm tạo mới ở trên!</p>
+		<p class="text-muted fst-italic py-3">
+			Chưa có tệp cấu hình nào. Hãy nhập key và bấm tạo mới ở trên!
+		</p>
 	{:else}
 		<ul class="list-group shadow-sm">
 			{#each configs as cfg (cfg.key)}
-				<li class="list-group-item d-flex justify-content-between align-items-center py-3 px-4">
+				<li class="list-group-item d-flex justify-content-between align-items-center px-4 py-3">
 					<div>
 						<strong class="text-primary fs-5">{cfg.title || cfg.key}</strong>
 						<div class="text-muted small mt-1">
-							Key: <code class="text-dark fw-bold">{cfg.key}</code> | 
-							Cập nhật: {new Date(cfg.updatedAt).toLocaleString()}
+							Key: <code class="text-dark fw-bold">{cfg.key}</code> | Cập nhật: {new Date(
+								cfg.updatedAt
+							).toLocaleString()}
 						</div>
 					</div>
 					<div class="d-flex gap-2">
@@ -168,14 +181,11 @@
 						<!-- svelte-ignore svelte/no-navigation-without-resolve -->
 						<a
 							href={`/admin/configs/${cfg.key}`}
-							class="btn btn-sm btn-outline-primary px-3 fw-semibold"
+							class="btn btn-sm btn-outline-primary fw-semibold px-3"
 						>
 							Sửa
 						</a>
-						<button
-							onclick={() => handleDelete(cfg.key)}
-							class="btn btn-sm btn-outline-danger"
-						>
+						<button onclick={() => handleDelete(cfg.key)} class="btn btn-sm btn-outline-danger">
 							Xóa
 						</button>
 					</div>
